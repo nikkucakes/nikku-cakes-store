@@ -42,3 +42,268 @@ button {
 img {
   max-width: 100%;
 }
+/* Nikku Cakes & More — premium storefront */
+.site-header {
+  min-height: 82px;
+  padding: 18px 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: #fff;
+  border-bottom: 1px solid #f3e3e7;
+}
+
+.brand {
+  font-size: 24px;
+  font-weight: 800;
+  color: #7b263f;
+  white-space: nowrap;
+}
+
+.brand span {
+  color: #c65c7b;
+}
+
+.site-header nav {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.site-header nav a {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.cart-link,
+.primary-button {
+  display: inline-block;
+  padding: 13px 22px;
+  color: #fff;
+  background: #a83250;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 420px;
+  padding: 76px 8%;
+  background: linear-gradient(120deg, #fff3f3, #fffaf0);
+}
+
+.eyebrow {
+  color: #a83250;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.hero h1 {
+  margin: 16px 0;
+  color: #40212d;
+  font-family: Georgia, serif;
+  font-size: clamp(42px, 6vw, 68px);
+  line-height: 1.08;
+}
+
+.hero h1 span {
+  color: #b64262;
+}
+
+.hero > p:not(.eyebrow) {
+  max-width: 480px;
+  margin-bottom: 26px;
+  color: #6f5960;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.hero-art {
+  position: absolute;
+  top: 50%;
+  right: 8%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateY(-50%);
+}
+
+.hero-art span {
+  display: grid;
+  width: 100px;
+  height: 120px;
+  place-items: center;
+  background: #fff;
+  border: 1px solid #f5dbe2;
+  border-radius: 28px;
+  box-shadow: 0 12px 35px #7b263f12;
+  font-size: 48px;
+}
+
+.hero-art span:nth-child(2) {
+  transform: translateY(-28px);
+}
+
+.benefits {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 24px 5%;
+  background: #fff;
+  border-bottom: 1px solid #f3e3e7;
+  color: #63434e;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.category-section {
+  padding: 70px 6%;
+  text-align: center;
+  background: #fffdfb;
+}
+
+.category-section h2 {
+  margin: 10px 0 32px;
+  color: #40212d;
+  font-family: Georgia, serif;
+  font-size: clamp(30px, 4vw, 42px);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.category-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 240px;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #f1dfe4;
+  border-radius: 22px;
+  box-shadow: 0 8px 28px #57283a08;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 35px #57283a14;
+}
+
+.category-icon {
+  display: grid;
+  width: 66px;
+  height: 66px;
+  place-items: center;
+  background: #fff0f3;
+  border-radius: 18px;
+  font-size: 34px;
+}
+
+.category-card h3 {
+  margin: 20px 0 8px;
+  color: #40212d;
+  font-size: 22px;
+}
+
+.category-card p {
+  color: #806b72;
+  line-height: 1.6;
+}
+
+.text-link {
+  margin-top: auto;
+  padding-top: 18px;
+  color: #a83250;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+footer {
+  padding: 36px 6%;
+  background: #40212d;
+  color: #fff;
+  text-align: center;
+}
+
+footer .brand {
+  color: #fff;
+}
+
+footer p {
+  margin: 12px 0;
+  color: #f5dfe6;
+}
+
+footer small {
+  color: #e8c6d1;
+}
+
+@media (max-width: 760px) {
+  .site-header {
+    flex-wrap: wrap;
+    padding: 16px 5%;
+  }
+
+  .site-header nav {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .brand {
+    font-size: 20px;
+  }
+
+  .cart-link {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 54px 6%;
+  }
+
+  .hero-art {
+    position: static;
+    justify-content: center;
+    margin-top: 38px;
+    transform: none;
+  }
+
+  .hero-art span {
+    width: 78px;
+    height: 88px;
+    font-size: 36px;
+  }
+
+  .benefits {
+    justify-content: flex-start;
+    padding: 22px 6%;
+  }
+
+  .category-section {
+    padding: 48px 5%;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .category-card {
+    min-height: 210px;
+  }
+}
