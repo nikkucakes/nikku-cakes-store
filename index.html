@@ -33,7 +33,51 @@ const products=[
 {id:"cakeflowers",name:"Cake & Flowers Combo",category:"Combos",desc:"A sweet cake paired with a beautiful bouquet",price:1499,unit:"estimated combo",image:"https://images.unsplash.com/photo-1513201099705-a9746e1e201f?auto=format&fit=crop&w=700&q=80",tag:"Gift combo"},
 {id:"celebration",name:"Celebration Surprise Combo",category:"Combos",desc:"A thoughtful bundle for their special day",price:1799,unit:"estimated combo",image:"https://images.unsplash.com/photo-1512909006721-3d6018887383?auto=format&fit=crop&w=700&q=80",tag:"Special pick"}
 ];
-let cart={};let activeFilter="All";const $=id=>document.getElementById(id);const money=n=>"₹"+Number(n).toLocaleString("en-IN");
+async function loadProductsFromSupabase() {
+  try {
+    const SUPABASE_URL = "https://utfksvdhbcbsdqqqxgak.supabase.co/";
+    const SUPABASE_KEY = "sb_publishable_lQMG01XzkKl0RZfretP0WA_ehWjg1ic";
+
+    const response = await fetch(
+      SUPABASE_URL + "rest/v1/Products?select=*",
+      {
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: "Bearer " + SUPABASE_KEY
+        }
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Supabase se products load nahi hue: " + response.status);
+    }
+
+    const rows = await response.json();
+
+    products.splice(
+      0,
+      products.length,
+      ...rows
+        .filter(p => p.is_available !== false)
+        .map(p => ({
+          id: String(p.id),
+          name: p.Name ?? p.name,
+          category: p.Category ?? p.category,
+          desc: p.Description ?? p.description ?? "",
+          price: Number(p.Price ?? p.price ?? 0),
+          image: p.Image_url ?? p.image_url ?? "",
+          unit: "starting price",
+          tag: "popular"
+        }))
+    );
+
+    renderProducts();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+loadProductsFromSupabase();let cart={};let activeFilter="All";const $=id=>document.getElementById(id);const money=n=>"₹"+Number(n).toLocaleString("en-IN");
 function renderProducts(){const query=$("searchInput").value.trim().toLowerCase();const visible=products.filter(p=>(activeFilter==="All"||p.category===activeFilter)&&(!query||(p.name+" "+p.category+" "+p.desc).toLowerCase().includes(query)));$("products").innerHTML=visible.length?visible.map(p=>`<article class="product"><div class="product-image"><img src="${p.image}" alt="${p.name}" loading="lazy" onerror="this.style.display='none'"><span class="tag">${p.tag}</span></div><div class="product-info"><h3>${p.name}</h3><p>${p.desc}</p><div class="price-row"><span class="price">${money(p.price)} <small>· ${p.unit}</small></span><button class="add" data-add="${p.id}">+ Add</button></div></div></article>`).join(""):'<div class="no-results">No matching items. Try another search.</div>';document.querySelectorAll(".filter").forEach(b=>b.classList.toggle("active",b.dataset.filter===activeFilter));}
 function renderCart(){const items=products.filter(p=>cart[p.id]);$("cartCount").textContent=Object.values(cart).reduce((a,b)=>a+b,0);$("cartLines").innerHTML=items.length?items.map(p=>`<div class="cartline"><div><b>${p.name}</b><div class="note">${money(p.price)} each · estimate</div></div><div class="qty"><button type="button" data-minus="${p.id}" aria-label="Decrease quantity">−</button><b>${cart[p.id]}</b><button type="button" data-plus="${p.id}" aria-label="Increase quantity">+</button></div></div>`).join(""):'<div class="empty">Your cart is empty. Choose a cake, flowers or a combo to get started.</div>';const total=items.reduce((sum,p)=>sum+p.price*cart[p.id],0);$("cartTotal").textContent=items.length?"Estimated subtotal: "+money(total):"";}
 function toast(msg){$("toast").textContent=msg;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2600)}function openCart(){renderCart();$("cartModal").classList.add("open")}function sendWhatsApp(message){if(!/^\d{10,15}$/.test(SHOP_WHATSAPP)){toast("Shop WhatsApp number needs to be configured.");return}window.open("https://wa.me/"+SHOP_WHATSAPP+"?text="+encodeURIComponent(message),"_blank","noopener")}
